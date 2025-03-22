@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeroJutta - Premium Footwear</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Discount Banner */
+        .discount-banner {
+            position: fixed;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            background: #e74c3c;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            z-index: 2000;
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { left: 100%; }
+            100% { left: -100%; }
+        }
+
+        /* Header */
+        header {
+            background: #ffffff;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 40px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        nav a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: #333;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 120px;
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1549298916-b41d501d3772') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 5%;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 4rem 5%;
+            display: none;
+        }
+
+        .products.active-section {
+            display: block;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image-container {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-info {
+            padding: 1rem;
+            background: white;
+        }
+
+        .product-price {
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .size-selector {
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+        }
+
+        .add-to-cart {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            width: 100%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background: #e74c3c;
+        }
+
+        /* Cart Page */
+        .cart-page {
+            display: none;
+            padding: 4rem 5%;
+        }
+
+        .cart-page.active-section {
+            display: block;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 2rem 5%;
+            margin-top: 4rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero {
+                margin-top: 100px;
+                height: 50vh;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            nav a {
+                margin: 0.5rem 0;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="discount-banner">
+        GET DISCOUNT UPTO 40% IN THIS NEW YEAR 2082
+    </div>
+
+    <header>
+        <div class="logo">MeroJuttaSteps</div>
+        <div class="mobile-menu">☰</div>
+        <nav>
+            <a href="#men" class="category-link">Men</a>
+            <a href="#women" class="category-link">Women</a>
+            <a href="#kids" class="category-link">Kids</a>
+            <a href="#cart" id="cart-link">Cart (0)</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Step Into Style</h1>
+            <p>Discover our premium collection of footwear</p>
+        </div>
+    </section>
+
+    <!-- Men's Section -->
+    <section class="products active-section" id="men">
+        <h2>Men's Collection</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1543508282-6319a3e2621f" 
+                         alt="Sports Shoes" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Sports Pro X</h3>
+                    <p class="product-price">$89.99</p>
+                    <select class="size-selector">
+                        <option value="">Select Size</option>
+                        <option>8</option><option>9</option><option>10</option>
+                        <option>11</option><option>12</option>
+                    </select>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa" 
+                         alt="Running Shoes" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Ultra Runner</h3>
+                    <p class="product-price">$109.99</p>
+                    <select class="size-selector">
+                        <option value="">Select Size</option>
+                        <option>8</option><option>9</option><option>10</option>
+                        <option>11</option><option>12</option>
+                    </select>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a" 
+                         alt="Casual Shoes" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>MeroJutta Walker</h3>
+                    <p class="product-price">$79.99</p>
+                    <select class="size-selector">
+                        <option value="">Select Size</option>
+                        <option>8</option><option>9</option><option>10</option>
+                        <option>11</option><option>12</option>
+                    </select>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Women's Section -->
+    <section class="products" id="women">
+        <h2>Women's Collection</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2" 
+                         alt="Women Shoes" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Elegant Heels</h3>
+                    <p class="product-price">$129.99</p>
+                    <select class="size-selector">
+                        <option value="">Select Size</option>
+                        <option>6</option><option>7</option>
+                        <option>8</option><option>9</option>
+                    </select>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2" 
+                         alt="Women Sneakers" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>City Runner</h3>
+                    <p class="product-price">$95.99</p>
+                    <select class="size-selector">
+                        <option value="">Select Size</option>
+                        <option>6</option><option>7</option>
+                        <option>8</option><option>9</option>
+                    </select>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kids Section -->
+    <section class="products" id="kids">
+        <h2>Kids Collection</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1581101767113-1677fc0449e9" 
+                         alt="Kids Shoes" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Junior Runner</h3>
+                    <p class="product-price">$49.99</p>
+                    <select class="size-selector">
+                        <option value="">Select Size</option>
+                        <option>3</option><option>4</option>
+                        <option>5</option><option>6</option>
+                    </select>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1595341888016-a392ef81b7de" 
+                         alt="Kids Sandals" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3>Beach Buddy</h3>
+                    <p class="product-price">$35.99</p>
+                    <select class="size-selector">
+                        <option value="">Select Size</option>
+                        <option>3</option><option>4</option>
+                        <option>5</option><option>6</option>
+                    </select>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-page" id="cart">
+        <h2>Your Cart</h2>
+        <div class="cart-items-container"></div>
+        <div class="cart-total">
+            <h3>Total: $<span id="total-amount">0</span></h3>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 MeroJutta. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Cart functionality
+        function updateCartDisplay() {
+            document.getElementById('cart-link').textContent = `Cart (${cart.length})`;
+            const cartContainer = document.querySelector('.cart-items-container');
+            const totalAmount = document.getElementById('total-amount');
+            
+            cartContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartContainer.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <h4>${item.name}</h4>
+                            <p>Size: ${item.size} | Price: $${item.price}</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})">Remove</button>
+                    </div>
+                `;
+            });
+            
+            totalAmount.textContent = total.toFixed(2);
+        }
+
+        function addToCart(button) {
+            const productCard = button.closest('.product-card');
+            const size = productCard.querySelector('.size-selector').value;
+            
+            if(!size) {
+                alert('Please select a size');
+                return;
+            }
+            
+            const product = {
+                name: productCard.querySelector('h3').textContent,
+                price: parseFloat(productCard.querySelector('.product-price').textContent.replace('$', '')),
+                size: size,
+                image: productCard.querySelector('img').src
+            };
+            
+            cart.push(product);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+
+        // Navigation
+        document.querySelectorAll('.category-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href');
+                document.querySelectorAll('.products, .cart-page').forEach(section => {
+                    section.classList.remove('active-section');
+                });
+                document.querySelector(target).classList.add('active-section');
+            });
+        });
+
+        document.getElementById('cart-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.products').forEach(section => {
+                section.classList.remove('active-section');
+            });
+            document.querySelector('.cart-page').classList.add('active-section');
+            updateCartDisplay();
+        });
+
+        // Mobile menu
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            const nav = document.querySelector('nav');
+            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Initialize
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                addToCart(this);
+            });
+        });
+
+        updateCartDisplay();
+    </script>
+</body>
+</html>
